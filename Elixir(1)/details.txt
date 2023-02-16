@@ -1,0 +1,116 @@
+Difference between Enum and Stream in Elixir :-
+==============================================
+
+Both enum and stream in Elixir are useful for working with collections of data, 
+but they are used for different purposes.
+
+enum is a module that provides a set of functions for working with lists and other 
+enumerable collections. It includes functions for filtering, mapping, and reducing 
+collections, as well as functions for working with multiple collections at the same 
+time. enum functions are generally more efficient than using a list comprehension or 
+recursion, because they are implemented in C and can take advantage of the Erlang 
+VM's built-in optimizations.
+
+Stream is a module that allows you to work with infinite sequences of data. A stream 
+is a lazy list, which means that it only generates the next value in the sequence when 
+it is needed. This allows you to work with large, potentially infinite collections of 
+data without having to load the entire collection into memory.
+
+In general, if you are working with a finite collection of data that you want to process 
+in some way, enum is probably the better choice. If you are working with an infinite 
+collection of data or a very large collection that won't fit in memory, stream is 
+probably a better choice.
+
+
+Deps :
+======
+
+{:httpoison, "~> 2.0"}
+{:ex_doc, "~> 0.12"}
+
+
+Ebay Auth n Auth Token :
+=======================
+
+v^1.1#i^1#I^3#f^0#p^3#r^1#t^Ul4xMF8xMDo4MkRBMTNENDRCQzNGMUQwQTU3NEVERDE0Q0NGNTIzMl8zXzEjRV4yNjA=
+
+App Id = SellSetG-SellSetG-PRD-e805bf466-5e9c103f
+Dev Id = a7980e6b-8a75-49d2-b992-c1e4eb7fd79b
+Cert Id = PRD-805bf466523a-1c03-4914-a3d9-dc20
+
+
+Installing PostgreSQL :
+=======================
+
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql.service (Now PostgreSQL Installed)
+
+Switching postgresql account :
+------------------------------
+
+(Two different ways to swich)
+
+1) This method switch user account.
+    1) sudo -i -u postgres
+    2) psql (to enter Intractive section)
+
+2) This method do not switch user account. directly enter into psql section
+    1) sudo -u postgres psql
+
+
+DB Configuration with Elixir :
+==============================
+
+1) Create Elixir app << mix new app --sup >>
+
+2) Include these dependencies 
+    {:ecto_sql, "~> 3.5"},
+    {:postgrex, ">= 0.0.0"}
+
+3) Then run << mix deps.get >>
+
+4) Use these commands for create db config's << mix ecto.gen.repo -r App.Repo >>
+
+5) Let's add App.Repo inside app/lib/app/application.ex children = [App.Repo]
+
+6) Add database details and config details inside config/config.exs
+
+    database: "dbname"
+    username: "dbusername"
+    password: "dbpassword"
+    hostname: "localhost"
+
+  config :app,
+    ecto_repos: [App.Repo]
+
+7) << mix ecto.create >> It's link the database
+
+8) next Thing is create table in your db using migration << mix ecto.gen.migration create_users >>
+
+9) we need add table in migration file priv/repo/migrations/20180322170954_create_users.exs
+
+    def change do
+        create table(:users) do
+            add(:first_name, :string)
+            add(:last_name, :string)
+            add(:user_name, :string)
+        end
+    end
+
+10) Then Run << mix ecto.migrate >>
+
+11) Let us create schema for link Elixir Struct to the database
+
+    create /lib/learning_circle/account/user.ex
+
+    defmodule App.Account.User do
+    use Ecto.Schema
+        schema "users" do
+            field(:first_name, :string)
+            field(:last_name, :string)
+            field(:user_name, :string)
+        end
+    end
+
+12) 
