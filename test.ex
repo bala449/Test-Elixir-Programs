@@ -4,5 +4,6 @@ defmodule Test do
     IO.puts("Second commit")
     IO.puts("Third commit Staging commit")
     IO.puts("Forth commit Staging commit")
+    IO.puts("Fifth commit Staging commit")
   end
 end
