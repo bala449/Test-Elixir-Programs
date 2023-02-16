@@ -6,8 +6,6 @@ defmodule Test do
     IO.puts("Forth commit Staging commit")
     IO.puts("Fifth commit Staging commit")
     IO.puts("Sixth commit for check whether the auto deploy working or not")
-    a = 10
-    b = 20
-    IO.puts("Seventh commit #{a+b}")
+    IO.puts("Seventh commit")
   end
 end
